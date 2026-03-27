@@ -1343,3 +1343,8 @@ def generate_site():
 
 if __name__ == '__main__':
     generate_site()
+
+# Generate CNAME file for custom domain
+cname_content = """tanners-tech-news.dyadlabs.us"""
+with open(f'{docs_dir}/CNAME', 'w') as f:
+    f.write(cname_content)
