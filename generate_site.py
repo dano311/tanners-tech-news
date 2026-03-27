@@ -980,7 +980,7 @@ def generate_giscus_script():
                 data-repo="dano311/tanners-tech-news"
                 data-repo-id="R_kgDORyQVHA"
                 data-category="General"
-                data-category-id="DIC_kwDORyQVHM4CnK0A"
+                data-category-id="DIC_kwDORyQVHM4C5bvj"
                 data-mapping="pathname"
                 data-strict="0"
                 data-reactions-enabled="1"
