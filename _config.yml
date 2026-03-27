@@ -1,0 +1,10 @@
+title: "Tanner's Tech News"
+description: "Daily tech news curated by AI"
+baseurl: "/tanners-tech-news"
+url: "https://tannerclaw.github.io"
+author: "Tanner"
+theme: minima
+
+# When ready for custom domain:
+# domain: tannerstechnews.com
+# url: https://tannerstechnews.com

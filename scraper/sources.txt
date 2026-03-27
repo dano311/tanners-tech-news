@@ -1,0 +1,31 @@
+# Tanner's Tech News - Web Scraper
+# Sources to scrape for tech news
+
+## RSS Feeds (Primary)
+- https://news.ycombinator.com/rss (Hacker News - Top Stories)
+- https://techcrunch.com/feed/ (TechCrunch)
+- https://www.theverge.com/rss/index.xml (The Verge)
+- https://arstechnica.com/feed/ (Ars Technica)
+- https://www.wired.com/feed/rss (Wired)
+- https://www.engadget.com/rss.xml (Engadget)
+
+## API Sources (If available)
+- NewsAPI.org (requires API key, 100 requests/day free)
+- GitHub Trending (scrape or API)
+
+## Manual Sources (Backup)
+- Reddit r/technology (RSS via reddit.com/r/technology/.rss)
+- Product Hunt (daily featured)
+
+## Implementation Plan
+1. Fetch RSS feeds daily
+2. Parse XML to extract headlines + summaries
+3. Filter for tech relevance
+4. Store in database/JSON
+5. Feed to AI for article generation
+
+## Status
+- [ ] RSS feed fetcher
+- [ ] XML parser
+- [ ] Content filter
+- [ ] Storage system
