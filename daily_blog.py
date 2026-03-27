@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Tanner's Tech News - Daily Blog Generator
-Scrapes Hacker News + Ollama generates blog post
+Tanner's Tech News - Daily Blog Generator v2
+Scrapes multiple sources + Ollama generates blog post
 """
 
 import json
@@ -16,6 +16,15 @@ with open('/home/dan/.openclaw/agents/main/agent/auth-profiles.json', 'r') as f:
 FIRE_KEY = config['firecrawl']['key']
 FIRE_HEADERS = {'Authorization': f'Bearer {FIRE_KEY}'}
 OLLAMA_URL = 'http://localhost:11434/api/generate'
+
+# Multiple news sources
+SOURCES = [
+    ('https://news.ycombinator.com', 'Hacker News'),
+    ('https://techcrunch.com', 'TechCrunch'),
+    ('https://www.theverge.com', 'The Verge'),
+    ('https://arstechnica.com', 'Ars Technica'),
+    ('https://www.reddit.com/r/technology/top/.json?t=day', 'Reddit r/technology'),
+]
 
 def scrape_hn():
     """Scrape Hacker News frontpage"""
@@ -32,7 +41,7 @@ def scrape_hn():
     md = response.json()['data']['markdown']
     stories = []
     
-    # Pattern: | 1. |  | [Title](url) ( [domain](url)) |
+    # Pattern: | 1. |  | [Title](url)
     for line in md.split('\n'):
         match = re.search(r'\|\s*\d+\.\s*\|\s*\|\s*\[(.+?)\]\(https?://[^)]+\)', line)
         if match:
@@ -40,25 +49,127 @@ def scrape_hn():
             if len(title) > 10 and 'Hacker News' not in title:
                 stories.append(title)
     
-    return stories[:10]  # Top 10
+    return stories[:8]
 
-def generate_post(stories):
+def scrape_techcrunch():
+    """Scrape TechCrunch"""
+    try:
+        response = requests.post(
+            'https://api.firecrawl.dev/v1/scrape',
+            headers=FIRE_HEADERS,
+            json={'url': 'https://techcrunch.com', 'formats': ['markdown'], 'onlyMainContent': True},
+            timeout=30
+        )
+        
+        if not response.json().get('success'):
+            return []
+        
+        md = response.json()['data']['markdown']
+        stories = []
+        
+        # Look for article titles (headers)
+        for line in md.split('\n'):
+            if line.startswith('## ') or line.startswith('### '):
+                title = line.lstrip('# ').strip()
+                # Filter out navigation, ads, etc
+                if len(title) > 20 and not any(x in title.lower() for x in ['cookie', 'privacy', 'subscribe', 'newsletter', 'sign up']):
+                    stories.append(title)
+        
+        return stories[:6]
+    except:
+        return []
+
+def scrape_verge():
+    """Scrape The Verge"""
+    try:
+        response = requests.post(
+            'https://api.firecrawl.dev/v1/scrape',
+            headers=FIRE_HEADERS,
+            json={'url': 'https://www.theverge.com', 'formats': ['markdown'], 'onlyMainContent': True},
+            timeout=30
+        )
+        
+        if not response.json().get('success'):
+            return []
+        
+        md = response.json()['data']['markdown']
+        stories = []
+        
+        for line in md.split('\n'):
+            if line.startswith('## ') or line.startswith('### '):
+                title = line.lstrip('# ').strip()
+                if len(title) > 20 and not any(x in title.lower() for x in ['cookie', 'privacy', 'subscribe', 'sign up', 'newsletter']):
+                    stories.append(title)
+        
+        return stories[:6]
+    except:
+        return []
+
+def scrape_ars():
+    """Scrape Ars Technica"""
+    try:
+        response = requests.post(
+            'https://api.firecrawl.dev/v1/scrape',
+            headers=FIRE_HEADERS,
+            json={'url': 'https://arstechnica.com', 'formats': ['markdown'], 'onlyMainContent': True},
+            timeout=30
+        )
+        
+        if not response.json().get('success'):
+            return []
+        
+        md = response.json()['data']['markdown']
+        stories = []
+        
+        for line in md.split('\n'):
+            if line.startswith('## ') or line.startswith('### '):
+                title = line.lstrip('# ').strip()
+                if len(title) > 20 and not any(x in title.lower() for x in ['cookie', 'privacy', 'subscribe']):
+                    stories.append(title)
+        
+        return stories[:5]
+    except:
+        return []
+
+def scrape_reddit_tech():
+    """Scrape Reddit r/technology"""
+    try:
+        headers = {'User-Agent': 'TannerTechNews/1.0'}
+        response = requests.get('https://www.reddit.com/r/technology/top/.json?t=day&limit=10', headers=headers, timeout=30)
+        data = response.json()
+        
+        stories = []
+        for post in data.get('data', {}).get('children', []):
+            title = post['data'].get('title', '')
+            if title and len(title) > 10:
+                stories.append(title)
+        
+        return stories[:8]
+    except:
+        return []
+
+def generate_post(all_headlines):
     """Generate blog post with Ollama"""
     
-    headlines_text = '\n'.join([f"- {s}" for s in stories[:8]])
+    headlines_text = ""
+    for source, headlines in all_headlines.items():
+        if headlines:
+            headlines_text += f"\nFrom {source}:\n"
+            for h in headlines[:5]:
+                headlines_text += f"- {h}\n"
     
     prompt = f"""You are Tanner, an AI tech news writer. Write a daily tech roundup blog post.
 
-Today's Hacker News headlines:
+Today's headlines from various tech sources:
 {headlines_text}
 
-Write a 400-600 word blog post with:
-1. Catchy title (tech themed, 5-8 words)
-2. Intro paragraph (what's trending today)
-3. 4-6 story summaries with your take/analysis
+Write a 500-700 word blog post with:
+1. Catchy title (tech themed, 5-10 words)
+2. Intro paragraph (what's trending today, big themes)
+3. 5-7 story summaries with your take/analysis (pick the most interesting)
 4. Brief closing thought
 
-Style: Conversational, slightly witty, informative. Use emojis. Avoid corporate speak.
+Style: Conversational, witty but informative. Use emojis. Avoid corporate speak.
 
 Format as markdown with ## headers."""
 
@@ -68,7 +179,7 @@ Format as markdown with ## headers."""
             'prompt': prompt,
             'stream': False
         }, timeout=180)
-        return response.json().get('response', 'Error')
+        return response.json().get('response', 'Error generating post')
     except Exception as e:
         return f"Error: {e}"
 
@@ -77,22 +188,51 @@ def main():
     print(f"🤖 TANNER'S TECH NEWS - {today}")
     print("="*50)
     
-    # Scrape
-    print("\n📰 Scraping Hacker News...")
-    stories = scrape_hn()
+    # Scrape all sources
+    print("\n📰 Scraping sources...")
+    all_headlines = {}
     
-    if not stories:
-        print("❌ No stories found")
+    print("  Scraping Hacker News...")
+    hn = scrape_hn()
+    if hn:
+        all_headlines['Hacker News'] = hn
+        print(f"    ✅ {len(hn)} headlines")
+    
+    print("  Scraping TechCrunch...")
+    tc = scrape_techcrunch()
+    if tc:
+        all_headlines['TechCrunch'] = tc
+        print(f"    ✅ {len(tc)} headlines")
+    
+    print("  Scraping The Verge...")
+    vg = scrape_verge()
+    if vg:
+        all_headlines['The Verge'] = vg
+        print(f"    ✅ {len(vg)} headlines")
+    
+    print("  Scraping Ars Technica...")
+    ars = scrape_ars()
+    if ars:
+        all_headlines['Ars Technica'] = ars
+        print(f"    ✅ {len(ars)} headlines")
+    
+    print("  Scraping Reddit r/technology...")
+    rd = scrape_reddit_tech()
+    if rd:
+        all_headlines['Reddit r/technology'] = rd
+        print(f"    ✅ {len(rd)} headlines")
+    
+    total = sum(len(h) for h in all_headlines.values())
+    print(f"\n📊 Total headlines: {total}")
+    
+    if not all_headlines:
+        print("❌ No headlines collected. Exiting.")
         return
     
-    print(f"✅ Found {len(stories)} stories")
-    for i, s in enumerate(stories[:5], 1):
-        print(f"  {i}. {s[:60]}...")
-    
     # Generate
-    print("\n✍️ Generating with Ollama...")
-    print("(This may take 30-60 seconds...)")
-    content = generate_post(stories)
+    print("\n✍️ Generating blog post with Ollama...")
+    print("(This may take 60-90 seconds...)")
+    content = generate_post(all_headlines)
     
     # Save
     import os
@@ -104,6 +244,7 @@ title: "Tanner's Tech News - {today}"
 date: "{today}"
 author: "Tanner (AI)"
 tags: [tech, news, daily]
+sources: {list(all_headlines.keys())}
 ---
 
 """
@@ -112,9 +253,11 @@ tags: [tech, news, daily]
         f.write(header + content)
     
     print(f"\n✅ SAVED: {filename}")
-    print(f"\n📄 FULL POST:\n")
-    print("="*50)
-    print(content)
+    print(f"\n📄 Sources used: {', '.join(all_headlines.keys())}")
+    print(f"\n--- PREVIEW ---\n")
+    print(content[:800] + "...")
+    
+    return filename
 
 if __name__ == '__main__':
     main()
