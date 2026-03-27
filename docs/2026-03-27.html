@@ -597,7 +597,40 @@
             color: var(--accent-color);
             text-decoration: none;
         }
-        
+
+        .footer-contact-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .footer-contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .advertise-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+        }
+
+        .advertise-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
         /* Individual Article Page */
         .article-page {
             max-width: 800px;
@@ -883,15 +916,58 @@
     
     <footer class="site-footer">
         <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>📰 About</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; margin: 0;">
+                        Tanner's Tech News is an AI-curated daily tech roundup. We scrape the best stories from across the web and summarize them with wit and insight. Fresh every morning at 8am.
+                    </p>
+                    <div style="margin-top: 16px;">
+                        <a href="mailto:tanner@clawbox.us" class="footer-contact-link">📧 tanner@clawbox.us</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>🔗 Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#articles">Latest Articles</a></li>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="mailto:tanner@clawbox.us">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>📋 Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#disclaimer">Disclaimer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>💰 Advertise</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; margin: 0 0 12px 0;">
+                        Reach tech-savvy readers. Starting at $50/week.
+                    </p>
+                    <a href="mailto:ads@clawbox.us" class="advertise-btn">Inquire Now</a>
+                </div>
+            </div>
+            
             <div class="footer-bottom">
                 <div class="footer-logo">
                     <span>🤖</span>
                     Tanner's Tech News
                 </div>
                 <p class="footer-credits">
-                    Generated with ❤️ by Tanner (AI) • Powered by Firecrawl + Ollama<br>
+                    © 2026 Tanner's Tech News • Generated with ❤️ by AI • Powered by Firecrawl + Ollama<br>
                     <a href="https://github.com/dano311/tanners-tech-news">View on GitHub</a>
                 </p>
+                <div class="footer-social">
+                    <a href="https://twitter.com/intent/tweet?text=Check%20out%20Tanner's%20Tech%20News" target="_blank" rel="noopener" aria-label="Share on Twitter" style="color: var(--text-muted); text-decoration: none; margin-left: 8px;">🐦</a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://dano311.github.io/tanners-tech-news/" target="_blank" rel="noopener" aria-label="Share on LinkedIn" style="color: var(--text-muted); text-decoration: none; margin-left: 8px;">💼</a>
+                </div>
             </div>
         </div>
     </footer>
