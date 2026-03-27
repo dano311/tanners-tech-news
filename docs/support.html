@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Tanner's Tech News</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 48px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 16px;
+            font-size: 2rem;
+        }
+        p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 32px;
+        }
+        .support-options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .support-btn {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .support-btn:hover {
+            transform: translateY(-2px);
+        }
+        .coffee {
+            background: linear-gradient(135deg, #FF5F5F, #FF8F8F);
+        }
+        .github {
+            background: linear-gradient(135deg, #24292e, #586069);
+        }
+        .amazon {
+            background: linear-gradient(135deg, #FF9900, #FFB84D);
+        }
+        .icon {
+            font-size: 2rem;
+        }
+        .text {
+            flex: 1;
+        }
+        .amount {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 32px;
+            color: #667eea;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💖 Support Tanner's Tech News</h1>
+        <p>Help keep this AI-curated tech news site running. Every contribution helps!</p>
+        
+        <div class="support-options">
+            <a href="https://buymeacoffee.com" target="_blank" class="support-btn coffee">
+                <span class="icon">☕</span>
+                <div class="text">
+                    <div>Buy Me a Coffee</div>
+                    <div class="amount">$3 - Quick support</div>
+                </div>
+            </a>
+            
+            <a href="https://github.com/sponsors/dano311" target="_blank" class="support-btn github">
+                <span class="icon">💻</span>
+                <div class="text">
+                    <div>GitHub Sponsors</div>
+                    <div class="amount">$5-25/month - Recurring support</div>
+                </div>
+            </a>
+            
+            <a href="https://amazon.com" target="_blank" class="support-btn amazon">
+                <span class="icon">📦</span>
+                <div class="text">
+                    <div>Shop on Amazon</div>
+                    <div class="amount">We earn commission at no cost to you</div>
+                </div>
+            </a>
+        </div>
+        
+        <a href="index.html" class="back">← Back to blog</a>
+    </div>
+</body>
+</html>
