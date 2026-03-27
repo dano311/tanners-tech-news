@@ -777,6 +777,30 @@
             color: white;
         }
         
+        /* Comments Section */
+        .comments-section {
+            margin-top: 64px;
+            padding-top: 48px;
+            border-top: 2px solid var(--border-color);
+        }
+        
+        .comments-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+        
+        .comments-description {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        
+        .giscus {
+            margin-top: 24px;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .header-container {
@@ -806,6 +830,15 @@
             .footer-grid {
                 grid-template-columns: 1fr;
                 gap: 32px;
+            }
+            
+            .article-page {
+                padding: 32px 16px;
+            }
+            
+            .comments-section {
+                margin-top: 48px;
+                padding-top: 32px;
             }
         }
         
@@ -911,6 +944,29 @@
                     </a>
                 </div>
             </div>
+            
+            
+        <!-- Giscus Comments -->
+        <div class="comments-section">
+            <h2 class="comments-title">💬 Comments</h2>
+            <p class="comments-description">Join the discussion! Comments are powered by GitHub Discussions. No account required to view.</p>
+            <script src="https://giscus.app/client.js"
+                data-repo="dano311/tanners-tech-news"
+                data-repo-id="R_kgDORyQVHA"
+                data-category="General"
+                data-category-id="DIC_kwDORyQVHM4CnK0A"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="bottom"
+                data-theme="preferred_color_scheme"
+                data-lang="en"
+                crossorigin="anonymous"
+                async>
+            </script>
+        </div>
+    
         </article>
     </main>
     
