@@ -1080,7 +1080,9 @@ def generate_site():
             </a>
             <nav class="nav-links">
                 <a href="index.html" class="nav-link active">Home</a>
-                <a href="index.html" class="nav-link">Articles</a>
+                <a href="archive.html" class="nav-link">Archive</a>
+                <a href="search.html" class="nav-link">🔍 Search</a>
+                <a href="about.html" class="nav-link">About</a>
                 <a href="https://github.com/dano311/tanners-tech-news" target="_blank" rel="noopener" class="github-link">
                     {icons['github']} GitHub
                 </a>
