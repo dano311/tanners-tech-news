@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#f97316"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100" height="100" rx="20" fill="#1e293b"/>
+  <rect x="3" y="3" width="94" height="94" rx="17" fill="url(#iconGradient)" opacity="0.1"/>
+  
+  <!-- Robot Head -->
+  <g transform="translate(50 55)">
+    <!-- Antenna -->
+    <line x1="0" y1="-40" x2="0" y2="-52" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="0" cy="-52" r="4" fill="#f97316"/>
+    
+    <!-- Head -->
+    <rect x="-28" y="-38" width="56" height="46" rx="10" fill="#334155"/>
+    <rect x="-25" y="-35" width="50" height="40" rx="8" fill="#475569"/>
+    
+    <!-- Eyes -->
+    <ellipse cx="-12" cy="-20" rx="10" ry="8" fill="#3b82f6"/>
+    <ellipse cx="-12" cy="-22" rx="3" ry="2" fill="#fff"/>
+    <ellipse cx="12" cy="-20" rx="10" ry="8" fill="#f97316"/>
+    <ellipse cx="12" cy="-22" rx="3" ry="2" fill="#fff"/>
+    
+    <!-- Mouth Display -->
+    <rect x="-18" y="5" width="36" height="8" rx="2" fill="#0f172a"/>
+    <rect x="-14" y="7" width="3" height="4" rx="0.5" fill="#10b981"/>
+    <rect x="-9" y="6" width="3" height="6" rx="0.5" fill="#10b981"/>
+    <rect x="-4" y="7" width="3" height="4" rx="0.5" fill="#10b981"/>
+    <rect x="1" y="6" width="3" height="6" rx="0.5" fill="#10b981"/>
+    <rect x="6" y="7" width="3" height="4" rx="0.5" fill="#10b981"/>
+    <rect x="11" y="7" width="3" height="4" rx="0.5" fill="#10b981"/>
+  </g>
+</svg>

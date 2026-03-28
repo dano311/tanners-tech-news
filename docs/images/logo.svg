@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#f97316"/>
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f97316"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="220" fill="url(#logoGradient)" opacity="0.1"/>
+  <circle cx="256" cy="256" r="200" fill="none" stroke="url(#logoGradient)" stroke-width="4"/>
+  
+  <!-- Circuit Board Pattern Background -->
+  <g stroke="url(#logoGradient)" stroke-width="3" fill="none" opacity="0.3">
+    <path d="M100 256 H150 L180 220 H230"/>
+    <path d="M412 256 H362 L332 292 H282"/>
+    <path d="M256 100 V150 L220 180"/>
+    <path d="M256 412 V362 L292 332"/>
+    <circle cx="150" cy="256" r="6" fill="#3b82f6"/>
+    <circle cx="362" cy="256" r="6" fill="#f97316"/>
+    <circle cx="256" cy="150" r="6" fill="#3b82f6"/>
+    <circle cx="256" cy="362" r="6" fill="#f97316"/>
+  </g>
+  
+  <!-- Robot Head -->
+  <g transform="translate(256 240)">
+    <!-- Head Shape -->
+    <rect x="-70" y="-90" width="140" height="120" rx="20" fill="#1e293b"/>
+    <rect x="-65" y="-85" width="130" height="110" rx="15" fill="#334155"/>
+    
+    <!-- Antenna -->
+    <line x1="0" y1="-90" x2="0" y2="-115" stroke="#64748b" stroke-width="4"/>
+    <circle cx="0" cy="-115" r="8" fill="url(#accentGradient)" filter="url(#glow)"/>
+    
+    <!-- Eyes Container -->
+    <rect x="-55" y="-60" width="110" height="50" rx="10" fill="#0f172a"/>
+    
+    <!-- Left Eye -->
+    <ellipse cx="-25" cy="-35" rx="18" ry="14" fill="#3b82f6"/>
+    <ellipse cx="-25" cy="-38" rx="6" ry="4" fill="#fff" opacity="0.8"/>
+    
+    <!-- Right Eye -->
+    <ellipse cx="25" cy="-35" rx="18" ry="14" fill="#f97316"/>
+    <ellipse cx="25" cy="-38" rx="6" ry="4" fill="#fff" opacity="0.8"/>
+    
+    <!-- Mouth/Display -->
+    <rect x="-40" y="10" width="80" height="20" rx="4" fill="#0f172a"/>
+    <g fill="#10b981">
+      <rect x="-32" y="16" width="4" height="8" rx="1"/>
+      <rect x="-24" y="14" width="4" height="12" rx="1"/>
+      <rect x="-16" y="16" width="4" height="8" rx="1"/>
+      <rect x="-8" y="14" width="4" height="12" rx="1"/>
+      <rect x="0" y="16" width="4" height="8" rx="1"/>
+      <rect x="8" y="14" width="4" height="12" rx="1"/>
+      <rect x="16" y="16" width="4" height="8" rx="1"/>
+      <rect x="24" y="18" width="4" height="4" rx="1"/>
+    </g>
+    
+    <!-- Neck -->
+    <rect x="-15" y="30" width="30" height="25" fill="#475569"/>
+    <rect x="-12" y="33" width="24" height="19" fill="#64748b"/>
+  </g>
+  
+  <!-- Signal Waves -->
+  <g opacity="0.4" stroke="url(#logoGradient)" stroke-width="2" fill="none">
+    <path d="M380 180 Q400 160 420 170">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M130 180 Q110 160 90 170">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+    </path>
+    <path d="M380 330 Q400 350 420 340">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite" begin="1s"/>
+    </path>
+    <path d="M130 330 Q110 350 90 340">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite" begin="1.5s"/>
+    </path>
+  </g>
+</svg>
